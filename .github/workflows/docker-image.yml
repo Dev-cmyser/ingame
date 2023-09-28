@@ -7,7 +7,7 @@ jobs:
     push_to_registry:
         name: Build and Publish
         runs-on: ubuntu-latest
-        if: github.ref == 'refs/heads/main'
+        # if: github.ref == 'refs/heads/main'
         steps:
             - name: Get release tag
               id: tag_name
