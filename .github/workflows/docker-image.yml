@@ -1,0 +1,29 @@
+name: Docker Image CI
+
+on:
+    pull_request:
+        branches: ['main']
+jobs:
+    push_to_registry:
+        name: Build and Publish
+        runs-on: ubuntu-latest
+        if: github.ref == 'refs/heads/main'
+        steps:
+            - name: Get release tag
+              id: tag_name
+              run: echo ::set-output name=SOURCE_TAG::${GITHUB_REF#refs/tags/}
+            - name: Check out the repo
+              uses: actions/checkout@v2
+            - name: Login to DockerHub
+              run: echo ${{ secrets.DOCKERHUB_PASSWORD }} | docker login -u ${{ secrets.DOCKERHUB_LOGIN }} --password-stdin
+            - name: Build and push Docker image
+              uses: docker/build-push-action@3b5e8027fcad23fda98b2e3ac259d8d67585f671
+              with:
+                  context: .
+                  file: ./Dockerfile
+                  push: true
+                  tags: cmyser/ingame:${{github.run_number}}
+# steps:
+# - uses: actions/checkout@v3
+# - name: Build the Docker image
+#   run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)

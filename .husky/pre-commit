@@ -1,0 +1,13 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+# Получите сообщение коммита из .git/COMMIT_EDITMSG
+commit_message=$(cat .git/COMMIT_EDITMSG)
+
+# Проверьте, содержит ли сообщение символ "#"
+# commit_message=$(git log -1 --pretty=%B)
+# if [[ $commit_message == *"#"* ]]; then
+  npm run test:e2e
+# else
+  # echo "Skipping e2e tests as commit message does not contain '#' symbol."
+# fi

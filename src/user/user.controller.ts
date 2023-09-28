@@ -1,0 +1,32 @@
+import { Body, Controller, Get, Post, Query, Req, Res } from '@nestjs/common'
+import { UserService } from './user.service'
+
+import { Response } from 'express'
+import { UpdateRequest } from './DTO/UpdateRequestt.dto'
+import { ApiBearerAuth, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger'
+import { TypeRequest } from './DTO/TypeRequest.dto'
+import { User } from './DTO/User.dto'
+@ApiTags('User')
+@Controller('user')
+export class UserController {
+    constructor(private readonly userServise: UserService) { }
+
+    @ApiBearerAuth()
+    @Get('get')
+    @ApiOperation({ summary: 'Получить пользователя' })
+    @ApiResponse({ status: 200, description: '', type: User })
+    @ApiResponse({ status: 401, description: 'Ошибка токена' })
+    getData(@Req() req: Request, @Res() res: Response) {
+        return this.userServise.getUserResponser(req, res)
+    }
+
+    @ApiBearerAuth()
+    @Post('update')
+    @ApiOperation({ summary: 'Обновить поля пользователя' })
+    @ApiResponse({ status: 200, description: '' })
+    @ApiResponse({ status: 401, description: 'Ошибка токена' })
+    updateData(@Body() body: UpdateRequest, @Req() req: Request, @Res() res: Response) {
+        // console.log(body)
+        return this.userServise.updateDataResponser(body, req, res)
+    }
+}
