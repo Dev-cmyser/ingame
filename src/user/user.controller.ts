@@ -1,10 +1,8 @@
-import { Body, Controller, Get, Post, Query, Req, Res } from '@nestjs/common'
+import { Body, Controller, Get, Post, Req, Res } from '@nestjs/common'
 import { UserService } from './user.service'
-
 import { Response } from 'express'
 import { UpdateRequest } from './DTO/UpdateRequestt.dto'
 import { ApiBearerAuth, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger'
-import { TypeRequest } from './DTO/TypeRequest.dto'
 import { User } from './DTO/User.dto'
 @ApiTags('User')
 @Controller('user')

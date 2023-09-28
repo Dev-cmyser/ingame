@@ -11,7 +11,6 @@ import { ResponseTokens } from './DTO/ResponseTokens.dto'
 import { ResponseOperationId } from './DTO/ResponseOperationId.dto'
 import { AuthCode } from './DTO/AuthCode.dto'
 import { TokenEntity } from 'src/entities/Tokens.entity'
-import { UserService } from 'src/user/user.service'
 import { createCode, getUserData } from './utils/auth.utils'
 import { ResponceGeneratorService } from 'src/others/responce-generator/responce-generator.service'
 import { FieldError } from 'src/others/DTO/FieldEror.dto'
@@ -25,7 +24,6 @@ export class AuthService {
         @InjectRepository(TokenEntity)
         private tokenRepo: Repository<TokenEntity>,
         private jwtService: JwtService,
-        private userService: UserService,
         private masterResponce: ResponceGeneratorService
     ) { }
 
@@ -62,7 +60,6 @@ export class AuthService {
         if (!isValidUUIDV4(operationId)) {
             return this.masterResponce.sendERROR(res, 'uuid не читается')
         }
-
         return this.codeLogic(res, code, operationId)
     }
 
@@ -85,7 +82,6 @@ export class AuthService {
     }
 
     async checkOldTokens(userId: string) {
-
         const tokens = await this.tokenRepo.findOneBy({ userId: userId })
         console.log(tokens)
         if (tokens != null) { await this.tokenRepo.delete(tokens.id) }
@@ -101,7 +97,6 @@ export class AuthService {
 
         if (tokens.length != 0) {
             const tokensResponce = this.createTokens(tokens[0].userId)
-
             tokens[0].refreshToken = tokensResponce.refreshToken
             tokens[0].accessToken = tokensResponce.accessToken
             await this.tokenRepo.save(tokens[0])
