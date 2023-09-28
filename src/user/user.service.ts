@@ -1,12 +1,8 @@
-/* eslint-disable prefer-const */
 import { Injectable } from '@nestjs/common'
-
 import { Response } from 'express'
 import { UpdateRequest } from './DTO/UpdateRequestt.dto'
-import { TypeRequest } from './DTO/TypeRequest.dto'
 import { ResponceGeneratorService } from 'src/others/responce-generator/responce-generator.service'
 import { FieldError } from 'src/others/DTO/FieldEror.dto'
-import { User } from './DTO/User.dto'
 @Injectable()
 export class UserService {
     constructor(private masterResponce: ResponceGeneratorService) { }
