@@ -2,11 +2,10 @@ import { NestFactory } from '@nestjs/core'
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger'
 import { AppModule } from './app.module'
 import { ValidationPipe } from '@nestjs/common'
-
+import * as dotenv from 'dotenv'
 async function bootstrap() {
     const app = await NestFactory.create(AppModule)
     app.useGlobalPipes(new ValidationPipe())
-
     const config = new DocumentBuilder()
         .setTitle('API')
         .setDescription('The sv.ru API description')
@@ -23,7 +22,6 @@ async function bootstrap() {
             in: 'Header',
         })
         .build()
-
     const document = SwaggerModule.createDocument(app, config)
     SwaggerModule.setup('doc', app, document)
     // Обработчик для SIGINT (Ctrl+C)
@@ -31,17 +29,15 @@ async function bootstrap() {
         console.log(
             'Приложение получило сигнал SIGINT (Ctrl+C). Закрываем соединение с базой данных и завершаем приложение.'
         )
-
         try {
             // Закрываем соединение с базой данных
             await app.close()
         } catch (error) {
             console.error('Произошла ошибка при закрытии соединения с базой данных:', error)
         }
-
         // Завершаем приложение
         process.exit()
     })
-    await app.listen(80) //80
+    await app.listen(process.env.PORT) //80
 }
 bootstrap()
