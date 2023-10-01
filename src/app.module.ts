@@ -15,6 +15,7 @@ import { ResponceGeneratorService } from './others/responce-generator/responce-g
 import { Author } from './entities/Author.entity'
 import { Book } from './entities/Book.entity'
 import { Genre } from './entities/Genre.entity'
+import { BookModule } from './book/book.module'
 
 @Module({
     imports: [
@@ -26,6 +27,7 @@ import { Genre } from './entities/Genre.entity'
         }),
         UserModule,
         ResponceGeneratorModule,
+        BookModule,
     ],
     providers: [ResponceGeneratorService],
     controllers: [],

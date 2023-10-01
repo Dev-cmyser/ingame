@@ -19,7 +19,7 @@ export class UserService {
         @InjectRepository(TokenEntity)
         private tokenRepo: Repository<TokenEntity>,
         private masterResponce: ResponceGeneratorService
-    ) { }
+    ) {}
 
     async deleteUser(req: Request, res: Response) {
         const userId = String(req.headers['userId'])
