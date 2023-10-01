@@ -16,9 +16,18 @@ import { Author } from './entities/Author.entity'
 import { Book } from './entities/Book.entity'
 import { Genre } from './entities/Genre.entity'
 import { BookModule } from './book/book.module'
+import { ConfigModule } from '@nestjs/config'
+import { configuration } from './config/configuration'
+import typeorm from './config/typeorm'
 
 @Module({
     imports: [
+        ConfigModule.forRoot({
+            envFilePath: `${process.cwd()}/src/config/env/${process.env.NODE_ENV}.env`,
+            load: [configuration, typeorm],
+            isGlobal: true,
+        }),
+
         PostgresModule,
         AuthModule,
         TypeOrmModule.forFeature([AuthPhoneEntity, TokenEntity, Author, Book, Genre]),

@@ -20,7 +20,7 @@ export class BookService {
         @InjectRepository(Genre)
         private genreRepo: Repository<Genre>,
         private masterResponce: ResponceGeneratorService
-    ) { }
+    ) {}
     async getGenresResponser(res: Response) {
         const genres = await this.genreRepo.find({
             select: { id: true, name: true },

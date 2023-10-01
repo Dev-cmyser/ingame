@@ -7,7 +7,7 @@ import { UpdateBook } from './DTO/Update.dto'
 @ApiTags('Book')
 @Controller('book')
 export class BookController {
-    constructor(private readonly bookServise: BookService) { }
+    constructor(private readonly bookServise: BookService) {}
 
     @ApiBearerAuth()
     @Get('getGenres')
