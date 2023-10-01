@@ -9,7 +9,7 @@ export class Author {
     @Column({ default: 'New Person' })
     name: string
 
-    @Column()
+    @Column({ nullable: true })
     phone: string
 
     @Column({ nullable: true })

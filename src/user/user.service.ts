@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common'
 import { Response } from 'express'
-import { UpdateRequest } from './DTO/UpdateRequestt.dto'
+import { UpdateRequest } from './DTO/UpdateRequest.dto'
 import { ResponceGeneratorService } from 'src/others/responce-generator/responce-generator.service'
 import { FieldError } from 'src/others/DTO/FieldEror.dto'
 import { Author } from 'src/entities/Author.entity'
@@ -43,7 +43,6 @@ export class UserService {
             where: { id: userId },
             relations: { books: true },
         })
-
         if (author) {
             return this.masterResponce.sendOK(res, author)
         } else {
@@ -71,7 +70,6 @@ export class UserService {
         }
         return true
     }
-
     async updateDataResponser(body: UpdateRequest, req: Request, res: Response) {
         const validation = await this.validationUser(res, body)
 

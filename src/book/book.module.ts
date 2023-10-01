@@ -17,4 +17,4 @@ import { Genre } from 'src/entities/Genre.entity'
         ResponceGeneratorModule,
     ],
 })
-export class BookModule { }
+export class BookModule {}

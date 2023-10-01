@@ -13,14 +13,14 @@ export class Book {
     @Column()
     redaction: string
 
-    @Column()
-    year: number
+    @Column({ default: new Date() })
+    year: Date
 
-    @ManyToMany(() => Author, (author) => author.books)
+    @ManyToMany(() => Author, (author) => author.books, { nullable: true })
     @JoinTable()
     authors: Author[]
 
-    @ManyToMany(() => Genre, (genre) => genre.books)
+    @ManyToMany(() => Genre, (genre) => genre.books, { nullable: true })
     @JoinTable()
     genres: Genre[]
 }
