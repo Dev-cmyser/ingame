@@ -39,14 +39,19 @@ $ npm install
 $  npm run build
 
 # make migrations
-$  npm run migration:generate -n src/migrations/Some_Name_for_migration
+$  npm run migration:create -n Some_Name_for_migration
 
-# run migrations to database
-$  npm run migration:up
-
-# revert migration
-$  npm run migration:down
+<!-- # run migrations to database -->
+<!-- $  npm run migration:up -->
+<!---->
+<!-- # revert migration -->
+<!-- $  npm run migration:down -->
 ```
+## Download book
+you need running up or go to server http://todotaskmaster.space/doc
+
+open postman
+
 
 ## Running the app
 
@@ -78,12 +83,12 @@ $ npm run test:cov
 
 Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
 
-## Stay in touch
-
--   Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
--   Website - [https://nestjs.com](https://nestjs.com/)
--   Twitter - [@nestframework](https://twitter.com/nestframework)
-
+<!-- ## Stay in touch -->
+<!---->
+<!-- -   Author - [Kamil Myśliwiec](https://kamilmysliwiec.com) -->
+<!-- -   Website - [https://nestjs.com](https://nestjs.com/) -->
+<!-- -   Twitter - [@nestframework](https://twitter.com/nestframework) -->
+<!---->
 ## License
 
 Nest is [MIT licensed](LICENSE).

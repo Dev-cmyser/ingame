@@ -32,7 +32,7 @@ import typeorm from 'src/config/typeorm'
     ],
 })
 export class PostgresModule implements OnModuleDestroy {
-    constructor(private readonly connection: Connection) { }
+    constructor(private readonly connection: Connection) {}
 
     async onModuleDestroy() {
         console.log('Connection was closed')

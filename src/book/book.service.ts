@@ -20,7 +20,14 @@ export class BookService {
         @InjectRepository(Genre)
         private genreRepo: Repository<Genre>,
         private masterResponce: ResponceGeneratorService
-    ) {}
+    ) { }
+    async getFilename(id: string, file: any, res: Response) {
+        if (!isValidUUIDV4(id)) {
+            return this.masterResponce.sendERROR(res, 'uuid не читается')
+        }
+        await this.bookRepo.update(id, { filename: file.filename })
+        return this.masterResponce.sendOK(res, { file: file.filename, book: id })
+    }
     async getGenresResponser(res: Response) {
         const genres = await this.genreRepo.find({
             select: { id: true, name: true },
@@ -34,7 +41,7 @@ export class BookService {
     }
     async getBooksResponser(res: Response) {
         const books = await this.bookRepo.find({
-            select: { id: true, name: true, redaction: true },
+            select: { id: true, name: true, redaction: true, filename: true },
             relations: { genres: true, authors: true },
         })
         if (books.length != 0) {

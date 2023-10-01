@@ -23,4 +23,7 @@ export class Book {
     @ManyToMany(() => Genre, (genre) => genre.books, { nullable: true })
     @JoinTable()
     genres: Genre[]
+
+    @Column({ default: 'Not Book' })
+    filename: string
 }
