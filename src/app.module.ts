@@ -12,12 +12,15 @@ import { UserController } from './user/user.controller'
 import { AuthController } from './auth/auth.controller'
 import { RateLimitMiddleware } from './middleware/rate-limit.middleware'
 import { ResponceGeneratorService } from './others/responce-generator/responce-generator.service'
+import { Author } from './entities/Author.entity'
+import { Book } from './entities/Book.entity'
+import { Genre } from './entities/Genre.entity'
 
 @Module({
     imports: [
         PostgresModule,
         AuthModule,
-        TypeOrmModule.forFeature([AuthPhoneEntity, TokenEntity]),
+        TypeOrmModule.forFeature([AuthPhoneEntity, TokenEntity, Author, Book, Genre]),
         JwtModule.register({
             secret: process.env.jwt_secret,
         }),

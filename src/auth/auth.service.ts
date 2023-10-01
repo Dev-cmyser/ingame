@@ -11,10 +11,11 @@ import { ResponseTokens } from './DTO/ResponseTokens.dto'
 import { ResponseOperationId } from './DTO/ResponseOperationId.dto'
 import { AuthCode } from './DTO/AuthCode.dto'
 import { TokenEntity } from 'src/entities/Tokens.entity'
-import { createCode, getUserData } from './utils/auth.utils'
+import { createCode, getAuthorData } from './utils/auth.utils'
 import { ResponceGeneratorService } from 'src/others/responce-generator/responce-generator.service'
 import { FieldError } from 'src/others/DTO/FieldEror.dto'
 import { isValidUUIDV4 } from 'is-valid-uuid-v4'
+import { UserService } from 'src/user/user.service'
 
 @Injectable()
 export class AuthService {
@@ -24,8 +25,9 @@ export class AuthService {
         @InjectRepository(TokenEntity)
         private tokenRepo: Repository<TokenEntity>,
         private jwtService: JwtService,
+        private userService: UserService,
         private masterResponce: ResponceGeneratorService
-    ) { }
+    ) {}
 
     async phoneResponser(body: AuthPhone, res: Response) {
         const typeLogin = body.typeLogin
@@ -66,14 +68,13 @@ export class AuthService {
     private async codeLogic(res: Response, code: string, operationId: string) {
         const authPhone = await this.findAuthPhone(operationId, code)
 
-        if (authPhone && code == authPhone.code) {
-            // const userId = await this.userService.getOrCreateUserId(authPhone.phone)
-            // await this.checkOldTokens(userId)
-            // const tokens = this.createTokens(userId)
-            // await this.saveTokens(tokens.refreshToken, tokens.accessToken, userId)
-            // await this.authPhoneRepo.remove(authPhone)
-            // return this.masterResponce.sendOK(res, tokens)
-            return this.masterResponce.sendOK(res, {})
+        if (authPhone.phone && code == authPhone.code) {
+            const authorId = await this.userService.getOrCreateUser(authPhone.phone)
+            await this.checkOldTokens(authorId)
+            const tokens = this.createTokens(authorId)
+            await this.saveTokens(tokens.refreshToken, tokens.accessToken, authorId)
+            await this.authPhoneRepo.remove(authPhone)
+            return this.masterResponce.sendOK(res, tokens)
         } else {
             const fields: FieldError[] = []
             fields.push(new FieldError('code', 'неверный код'))
@@ -81,10 +82,11 @@ export class AuthService {
         }
     }
 
-    async checkOldTokens(userId: string) {
-        const tokens = await this.tokenRepo.findOneBy({ userId: userId })
-        console.log(tokens)
-        if (tokens != null) { await this.tokenRepo.delete(tokens.id) }
+    async checkOldTokens(authorId: string) {
+        const tokens = await this.tokenRepo.findOneBy({ userId: authorId })
+        if (tokens != null) {
+            await this.tokenRepo.delete(tokens.id)
+        }
     }
     async updateTokensResponser(body: UpdateTokens, res: Response) {
         const refreshToken = body.refreshToken
@@ -145,15 +147,12 @@ export class AuthService {
     }
 
     createTokens(userId: string): ResponseTokens {
-        const data = getUserData(userId)
-        // console.log(this.configService.get<string>('jwt_secret'))
-        // console.log(process.env.JWT_SECRET)
+        const data = getAuthorData(userId)
         const accessToken = this.jwtService.sign(data, {
             secret: process.env.JWT_SECRET,
             privateKey: process.env.JWT_SECRET,
             expiresIn: process.env.ACCESS_JWT_EXPIRES_IN,
         })
-        // console.log(accessToken, 111111)
         const refreshToken = this.jwtService.sign(data, {
             secret: process.env.JWT_SECRET,
             privateKey: process.env.JWT_SECRET,

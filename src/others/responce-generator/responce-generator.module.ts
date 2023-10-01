@@ -1,8 +1,8 @@
-import { Module } from '@nestjs/common';
-import { ResponceGeneratorService } from './responce-generator.service';
+import { Module } from '@nestjs/common'
+import { ResponceGeneratorService } from './responce-generator.service'
 
 @Module({
-  providers: [ResponceGeneratorService],
-  exports: [ResponceGeneratorService]
+    providers: [ResponceGeneratorService],
+    exports: [ResponceGeneratorService],
 })
-export class ResponceGeneratorModule { }
+export class ResponceGeneratorModule {}

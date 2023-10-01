@@ -14,7 +14,7 @@ export class AccessTokenMiddleware implements NestMiddleware {
         private tokenRepo: Repository<TokenEntity>,
         private jwtService: JwtService,
         private masterResponce: ResponceGeneratorService
-    ) { }
+    ) {}
     async use(req: Request, res: Response, next: NextFunction) {
         let authorization: string
 

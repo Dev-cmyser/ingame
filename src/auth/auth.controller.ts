@@ -10,7 +10,7 @@ import { ResponseTokens } from './DTO/ResponseTokens.dto'
 @ApiTags('Authtorization')
 @Controller('auth')
 export class AuthController {
-    constructor(private readonly authService: AuthService) { }
+    constructor(private readonly authService: AuthService) {}
 
     @Post('phone')
     @ApiOperation({
@@ -29,12 +29,12 @@ export class AuthController {
 
     @Post('code')
     @ApiOperation({
-        summary: 'Проверить правильность кода',
+        summary:
+            'Проверить правильность кода - При правильном коде создается новый пользователь ( или находиться )',
     })
     @ApiResponse({ status: 200, description: '', type: ResponseTokens })
     @ApiResponse({ status: 400, description: '' })
     code(@Body() body: AuthCode, @Res() res: Response) {
-        // console.log(body)
         return this.authService.codeResponser(body, res)
     }
 

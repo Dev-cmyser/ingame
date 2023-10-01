@@ -1,7 +1,7 @@
 export class UpdateTokens {
-    refreshToken: string;
+    refreshToken: string
 
     constructor(refreshToken: string) {
-        this.refreshToken = refreshToken;
+        this.refreshToken = refreshToken
     }
 }

@@ -1,40 +1,19 @@
 export class UpdateRequest {
-    // userId?: string
-
     name?: string
     email?: string
-    birthDay?: Date
-    favoriteFuelType?: string
-    // isEmail: boolean
-    // isUr?: boolean
-    //
-    // isFiz?: boolean
-    //
-    // scopes?: number
-    //
-    // fuelType?: string
-    //
-    // isBlocked?: boolean
+    birthday?: Date
+    books?: string[]
 
     constructor(
         name?: string,
 
         email?: string,
-        birthDay?: Date,
-        favoriteFuelType?: string
-
-        // userId?: string,
-        // scopes?: number,
-        // fuelType?: string,
-        // isBlocked?: boolean
+        birthday?: Date,
+        books?: string[]
     ) {
         this.name = name
         this.email = email
-        this.birthDay = birthDay
-        this.favoriteFuelType = favoriteFuelType
-        // this.userId = userId
-        // this.scopes = scopes
-        // this.fuelType = fuelType
-        // this.isBlocked = isBlocked
+        this.birthday = birthday
+        this.books = books
     }
 }

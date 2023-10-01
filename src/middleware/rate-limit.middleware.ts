@@ -12,7 +12,7 @@ export class RateLimitMiddleware implements NestMiddleware {
         @InjectRepository(AuthPhoneEntity)
         private authPhoneRepo: Repository<AuthPhoneEntity>,
         private masterResponce: ResponceGeneratorService
-    ) { }
+    ) {}
 
     async findAuthPhone(phone: string) {
         return this.authPhoneRepo.find({

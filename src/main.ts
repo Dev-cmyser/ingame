@@ -10,15 +10,14 @@ async function bootstrap() {
         .setTitle('API')
         .setDescription('The sv.ru API description')
         .setVersion('1.0')
-        .addServer('http://localhost:80')
-        .addServer('https://codovstvo-test.ru/gateway')
+        .addServer('http://localhost:8080')
+        .addServer('http://todotaskmaster.space')
         .addBearerAuth({
-            // I was also testing it without prefix 'Bearer ' before the JWT
-            description: `[just text field] Please enter token in following format: Bearer <JWT>`,
+            description: `Please enter token in following format: Bearer <JWT>`,
             name: 'Authorization',
-            bearerFormat: '', // I`ve tested not to use this field, but the result was the same
+            bearerFormat: '',
             scheme: 'Bearer',
-            type: 'http', // I`ve attempted type: 'apiKey' too
+            type: 'http',
             in: 'Header',
         })
         .build()
@@ -30,14 +29,12 @@ async function bootstrap() {
             'Приложение получило сигнал SIGINT (Ctrl+C). Закрываем соединение с базой данных и завершаем приложение.'
         )
         try {
-            // Закрываем соединение с базой данных
             await app.close()
         } catch (error) {
             console.error('Произошла ошибка при закрытии соединения с базой данных:', error)
         }
-        // Завершаем приложение
         process.exit()
     })
-    await app.listen(process.env.PORT) //80
+    await app.listen(process.env.PORT)
 }
 bootstrap()
