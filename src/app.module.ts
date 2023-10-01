@@ -12,17 +12,31 @@ import { UserController } from './user/user.controller'
 import { AuthController } from './auth/auth.controller'
 import { RateLimitMiddleware } from './middleware/rate-limit.middleware'
 import { ResponceGeneratorService } from './others/responce-generator/responce-generator.service'
+import { Author } from './entities/Author.entity'
+import { Book } from './entities/Book.entity'
+import { Genre } from './entities/Genre.entity'
+import { BookModule } from './book/book.module'
+import { ConfigModule } from '@nestjs/config'
+import { configuration } from './config/configuration'
+import typeorm from './config/typeorm'
 
 @Module({
     imports: [
+        ConfigModule.forRoot({
+            envFilePath: `${process.cwd()}/src/config/env/${process.env.NODE_ENV}.env`,
+            load: [configuration, typeorm],
+            isGlobal: true,
+        }),
+
         PostgresModule,
         AuthModule,
-        TypeOrmModule.forFeature([AuthPhoneEntity, TokenEntity]),
+        TypeOrmModule.forFeature([AuthPhoneEntity, TokenEntity, Author, Book, Genre]),
         JwtModule.register({
             secret: process.env.jwt_secret,
         }),
         UserModule,
         ResponceGeneratorModule,
+        BookModule,
     ],
     providers: [ResponceGeneratorService],
     controllers: [],

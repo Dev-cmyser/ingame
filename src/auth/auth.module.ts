@@ -14,6 +14,9 @@ import 'dotenv/config'
 import { PostgresModule } from 'src/postgres/postgres.module'
 import { TypeOrmModule } from '@nestjs/typeorm'
 import { configuration } from 'src/config/configuration'
+import { Author } from 'src/entities/Author.entity'
+import { Book } from 'src/entities/Book.entity'
+import { Genre } from 'src/entities/Genre.entity'
 
 @Module({
     controllers: [AuthController],
@@ -28,10 +31,10 @@ import { configuration } from 'src/config/configuration'
         ResponceGeneratorModule,
         UserModule,
         PostgresModule,
-        TypeOrmModule.forFeature([AuthPhoneEntity, TokenEntity]),
+        TypeOrmModule.forFeature([AuthPhoneEntity, TokenEntity, Author, Book, Genre]),
         JwtModule.register({
             secret: process.env.jwt_secret,
         }),
     ],
 })
-export class AuthModule { }
+export class AuthModule {}

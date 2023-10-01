@@ -11,4 +11,4 @@ import { ResponceGeneratorService } from 'src/others/responce-generator/responce
     providers: [RateLimitMiddleware, ResponceGeneratorService],
     imports: [ResponceGeneratorModule, PostgresModule, TypeOrmModule.forFeature([AuthPhoneEntity])],
 })
-export class RateLimitModule { }
+export class RateLimitModule {}

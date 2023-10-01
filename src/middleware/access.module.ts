@@ -17,4 +17,4 @@ import { ResponceGeneratorModule } from 'src/others/responce-generator/responce-
         ResponceGeneratorModule,
     ],
 })
-export class AuthModule { }
+export class AuthModule {}

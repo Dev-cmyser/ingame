@@ -2,5 +2,6 @@ import { Test, TestingModule } from '@nestjs/testing'
 import { INestApplication } from '@nestjs/common'
 import * as request from 'supertest'
 
-describe('Ingame tetst service', () => { //sad
+describe('Ingame tetst service', () => {
+    //sad
 })

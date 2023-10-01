@@ -7,11 +7,15 @@ import { TokenEntity } from 'src/entities/Tokens.entity'
 import { Connection } from 'typeorm'
 import { configuration } from 'src/config/configuration'
 import { ConfigModule } from '@nestjs/config'
+import { Book } from 'src/entities/Book.entity'
+import { Genre } from 'src/entities/Genre.entity'
+import { Author } from 'src/entities/Author.entity'
+import typeorm from 'src/config/typeorm'
 @Module({
     imports: [
         ConfigModule.forRoot({
             envFilePath: `${process.cwd()}/src/config/env/${process.env.NODE_ENV}.env`,
-            load: [configuration],
+            load: [configuration, typeorm],
             isGlobal: true,
         }),
         TypeOrmModule.forRoot({
@@ -21,14 +25,14 @@ import { ConfigModule } from '@nestjs/config'
             username: process.env.POSTGRES_USER,
             password: process.env.POSTGRES_PASSWORD,
             database: process.env.POSTGRES_DBNAME,
-            entities: [AuthPhoneEntity, TokenEntity],
+            entities: [AuthPhoneEntity, TokenEntity, Author, Book, Genre],
             synchronize: true,
             autoLoadEntities: true,
         }),
     ],
 })
 export class PostgresModule implements OnModuleDestroy {
-    constructor(private readonly connection: Connection) { }
+    constructor(private readonly connection: Connection) {}
 
     async onModuleDestroy() {
         console.log('Connection was closed')
