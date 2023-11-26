@@ -3,7 +3,9 @@ services:
   postgres:
     image: postgres
     environment:
-      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: postgres 
+      POSTGRES_PASSWORD: postgres 
+      POSTGRES_DB: postgres 
     volumes:
       - postgres_data:/var/lib/postgresql/data
     ports:
@@ -12,7 +14,7 @@ services:
   pgadmin:
     image: dpage/pgadmin4
     environment:
-      PGADMIN_DEFAULT_EMAIL: postgres
+      PGADMIN_DEFAULT_EMAIL: postgres@mail.ru
       PGADMIN_DEFAULT_PASSWORD: postgres
     ports:
       - "80:80"
