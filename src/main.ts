@@ -22,7 +22,7 @@ async function bootstrap() {
         })
         .build()
     const document = SwaggerModule.createDocument(app, config)
-    SwaggerModule.setup('doc', app, document)
+    SwaggerModule.setup('docs', app, document)
     // Обработчик для SIGINT (Ctrl+C)
     process.on('SIGINT', async () => {
         console.log(
@@ -35,6 +35,7 @@ async function bootstrap() {
         }
         process.exit()
     })
+    console.log(process.env.PORT)
     await app.listen(process.env.PORT)
 }
 bootstrap()

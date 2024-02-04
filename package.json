@@ -9,7 +9,7 @@
         "build": "NODE_ENV=production nest build",
         "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
         "start": "nest start",
-        "start:dev": "NODE_ENV=development nest start --watch",
+        "start:dev": "export NODE_ENV=development && nest start --watch",
         "start:wdev": "cross-env NODE_ENV=development nest start --watch",
         "start:debug": "nest start --debug --watch",
         "start:prod": "NODE_ENV=production node dist/main",
@@ -59,7 +59,8 @@
         "reflect-metadata": "^0.1.13",
         "rxjs": "^7.8.1",
         "swagger-ui-express": "^5.0.0",
-        "typeorm": "^0.3.17"
+        "typeorm": "^0.3.17",
+        "typescript": "^5.1.3"
     },
     "devDependencies": {
         "@nestjs/cli": "^10.0.0",
@@ -84,8 +85,7 @@
         "ts-jest": "^29.1.0",
         "ts-loader": "^9.4.3",
         "ts-node": "^10.9.1",
-        "tsconfig-paths": "^4.2.0",
-        "typescript": "^5.1.3"
+        "tsconfig-paths": "^4.2.0"
     },
     "jest": {
         "moduleFileExtensions": [
